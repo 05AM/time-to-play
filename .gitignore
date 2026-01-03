@@ -333,3 +333,6 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/java,kotlin,windows,linux,intellij+iml,intellij,gradle,git
+
+# secrets
+secret**.properties
