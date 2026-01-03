@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>오늘의 세일 알림</title>
+</head>
+
+<body style="margin:0; padding:0; background:#f3f4f6;">
+<div style="display:none; max-height:0; overflow:hidden; opacity:0; color:transparent;">
+    위시리스트에서 할인 중인 게임을 확인하세요.
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="background:#f3f4f6; margin:0; padding:0;">
+    <tr>
+        <td align="center" style="padding:24px 12px;">
+            <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0"
+                   style="width:100%; max-width:640px; background:#ffffff; border-radius:16px; overflow:hidden; border:1px solid #e5e7eb;">
+
+                <tr>
+                    <td style="padding:18px 20px; background:#111827;">
+                        <div style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', Arial, sans-serif; color:#ffffff;">
+                            <div style="font-size:18px; font-weight:800;">오늘의 세일 알림</div>
+                            <div style="margin-top:6px; font-size:13px; opacity:0.9;">
+                                <span th:text="${memberName}">회원</span>님 위시리스트에서 할인 중인 게임이에요.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:18px 20px;">
+                        <div style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', Arial, sans-serif; color:#111827;">
+
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px;">
+                                <tr>
+                                    <td bgcolor="#2563eb" style="border-radius:12px;">
+                                        <a th:href="${wishlistUrl}"
+                                           style="display:inline-block; padding:11px 14px; font-size:14px; font-weight:800; color:#ffffff; text-decoration:none;">
+                                            내 위시리스트 가기 →
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr th:each="row : ${items}">
+                                    <td style="padding:0 0 14px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                               style="border:1px solid #eef0f4; border-radius:14px; overflow:hidden;">
+                                            <tr>
+                                                <!-- 1:1 thumbnail -->
+                                                <td width="120" valign="top" style="padding:12px;">
+                                                    <img th:src="${row.mainImageUrl != null ? row.mainImageUrl : 'https://dummyimage.com/300x300/e5e7eb/111827&text=No+Image'}"
+                                                         width="120" height="120"
+                                                         style="display:block; width:120px; height:120px; border-radius:12px; object-fit:cover; background:#e5e7eb;">
+                                                </td>
+
+                                                <td valign="top" style="padding:14px 14px 14px 0;">
+                                                    <!-- platform badge first -->
+                                                    <div style="margin-bottom:8px;">
+                                                        <span th:if="${row.platform != null}"
+                                                              th:text="${row.platform.displayName}"
+                                                              style="display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:800; background:#eef2ff; color:#3730a3;">
+                                                            PLATFORM
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- title -->
+                                                    <div style="font-size:15px; font-weight:900; line-height:1.4; margin-bottom:10px;">
+                                                        <span th:text="${row.gameName}">게임명</span>
+                                                    </div>
+
+                                                    <!-- price row -->
+                                                    <div style="font-size:13px; color:#374151; line-height:1.6;">
+                                                        <span style="display:inline-block; background:#fee2e2; color:#991b1b; font-weight:900; padding:4px 10px; border-radius:999px; margin-right:8px;"
+                                                              th:text="${row.discountRate != null ? row.discountRate + '%' : '-'}">
+                                                            0%
+                                                        </span>
+
+                                                        <span style="text-decoration:line-through; color:#9ca3af; margin-right:8px;"
+                                                              th:text="${row.priceOriginal != null ? #numbers.formatInteger(row.priceOriginal, 0, 'COMMA') + '원' : '-'}">
+                                                            -
+                                                        </span>
+
+                                                        <span style="font-weight:900;"
+                                                              th:text="${row.priceCurrent != null ? '→ ' + #numbers.formatInteger(row.priceCurrent, 0, 'COMMA') + '원' : '-'}">
+                                                            →
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:14px 20px; border-top:1px solid #eef0f4; font-size:12px; color:#6b7280;">
+                        이 메일은 위시리스트 할인 알림 설정에 따라 발송되었습니다.
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

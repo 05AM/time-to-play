@@ -1,0 +1,53 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
+}
+
+dependencies {
+    implementation project(':core')
+
+    // batch
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    testImplementation 'org.springframework.batch:spring-batch-test'
+    implementation 'org.springframework:spring-web'
+    implementation "org.springframework.boot:spring-boot-starter-mail"
+
+    // template
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+
+    // scheduling
+//    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
+    // prod/monitoring
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+    // infra
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+
+    // Sentry
+    implementation 'io.sentry:sentry-spring-boot-starter-jakarta'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // DB
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // migration
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly 'org.flywaydb:flyway-database-postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}

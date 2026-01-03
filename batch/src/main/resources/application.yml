@@ -1,0 +1,74 @@
+spring:
+  datasource:
+    api:
+      url: jdbc:postgresql://localhost:5432/timetoplay
+      username: postgres
+      password: 1234
+      driver-class-name: org.postgresql.Driver
+    batch:
+      url: jdbc:postgresql://localhost:5432/timetoplay_batch
+      username: postgres
+      password: 1234
+      driver-class-name: org.postgresql.Driver
+
+  batch:
+#    job:
+#      name: psnDiscoverNewJob
+    job:
+      name: wishlistSaleMailJob
+#    enabled: false
+    jdbc:
+      initialize-schema: never
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    locations: classpath:db/migration/batch
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: anytime0224@gmail.com
+    password: zoty uhxu veyf yivs
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+external:
+  psn:
+    base-url: https://web.np.playstation.com
+    concept-base-url: https://store.playstation.com/ko-kr/concept/
+    product-base-url: https://store.playstation.com/ko-kr/product/
+    graphql-path: /api/graphql/v1//op
+    locale: ko-KR
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+      Accept-Language: ko,en;q=0.9,en-US;q=0.8
+      User-Agent: ${PSN_USER_AGENT:Mozilla/5.0}
+      x-psn-store-locale-override: ko-KR
+    operations:
+      categoryGridRetrieve:
+        operation-name: categoryGridRetrieve
+        sha256: 257713466fc3264850aa473409a29088e3a4115e6e69e9fb3e061c8dd5b9f5c6
+      conceptRetrieveForUpsellWithCtas:
+        operation-name: conceptRetrieveForUpsellWithCtas
+        sha256: 8109a9596c0b1172e5ef8ad7c7938ffafb627b3e70d899bf6637398c9b802d3c
+
+  steam:
+    base-url: https://store.steampowered.com
+
+  nintendo:
+    base-url: https://store.nintendo.co.kr
+
+
+wishlist-sale-mail:
+  cron: "0 0 19 * * *"
+  lookback-hours: 24
+  chunk-size: 200
+  fetch-size: 500
+  wishlist-url: "http://localhost:3000/wishlist"
+  from-email: "no-reply@timetoplay.kr"
+  subject-prefix: "[TimeToPlay] 위시리스트의 게임 %s개가 할인 중 입니다!"
